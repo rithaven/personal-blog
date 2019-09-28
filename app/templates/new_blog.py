@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+  <div class="container">
+    <a href="{{url_for('main.index')}}'"></a>
+        {{wtf.quick_form(new_blog_form)}}
+  </div>
+{% endblock%}

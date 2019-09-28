@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% import 'macro.html' as macro%}
+
+<!--Content block-->
+{% block content %}
+<div class="container">
+  <!--Poster background-->
+  <div class="row">
+    <h3> Pich ID: {{found_blog}}</h3>
+    <p>{{ found_blog.blog}}</p>
+    <a href="/blog/comments/new/{{found_blog.id}}"> Comment</a>
+
+  </div>
+  <div class="row">
+      <h1> Comments on This blog</h1>
+      <hr>
+      {%if blog_comments%}
+      {{ macro.displayComments(blog_comments}}
+      {% else %}
+         <h3 class="text-center"> This Blog has no comments</h3>
+      {%endif%}
+
+  </div>
+</div>
+{%endblock%}

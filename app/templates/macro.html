@@ -1,0 +1,44 @@
+{% macro displayBlogs(blogs_list)%}
+ 
+  {% for blog in blogs_list%}
+    <div class="panel style="style="box-shodow: 5px 5px 5px 5px #f2f2f2; padding:10px; text-align:center;">
+       <p>{{blog.blog}}</p>
+       <br>
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;&nbsp;|
+       <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">vote</a>
+       
+    </div>
+{% endfor%}
+
+{%endmacro %}
+<!--Displaying comments macro-->
+{% macro displayComments(list_of_comments) %}
+{% for comment in list_of_comments %}
+
+<div class="row">
+
+       <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+         <h4>Author</h4>
+         <p>{{comment.user.username}}</p>
+       </div>
+       <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
+         <h2> <a href="{{url_for('main.single_comment',id=comment.id)}}"> {{comment.blog_title}}</a></h2>
+       </div>
+</div>
+
+{% endfor %}
+{% endmacro %}
+
+ {% for blog in blogs %}
+  
+
+    <div class="panel style="style="box-shodow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
+       <p>{{blog.blog}}</p>
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;|
+       <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">vote</a>
+    </div>
+   
+  {% endfor %}
+{% endmacro %}

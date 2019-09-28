@@ -1,0 +1,21 @@
+<html>
+<header>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+</header>
+<body class="background-image" style="background-image:url('static/image/status.jpg'); height: 185vh;background-size: cover;background-repeat: no-repeat;">
+{% extends 'bootstrap/base.html'%}
+
+<!--Navbar block-->
+{% block navbar%}
+{% include 'navbar.html' %}
+{% endblock%}
+
+{%block styles%}
+{{super()}}
+<!--Import the simple mde css and js files-->
+{{ simplemde.css}}
+{{ simplemde.js}}
+{% endblock%}
+</body>
+</html>
