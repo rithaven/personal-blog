@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import  main
-from .forms import CommentsForm, UpdateProfile, BlogForm, UpvoteForm
+from .forms import CommentsForm, UpdateProfile, BlogForm
 from ..models import Comment, Blog, User
 from flask_login import login_required, current_user
 from .. import db, photos
@@ -41,6 +41,7 @@ def search(blog_name):
     return render_template('search.html', blogs = searched_blogs)
 
 @main.route('/blog/new/', methods = ['GET', 'POST'])
+@login_required
 def new_blog():
     '''
     Function that creates new blogs
@@ -51,7 +52,7 @@ def new_blog():
   
     if form.validate_on_submit():
         blog = form.content.data
-        new_blog = blog(blog = blog)
+        new_blog = Blog(blog = blog)
 
         new_blog.save_blog()
         return redirect(url_for('main.index'))
@@ -62,13 +63,13 @@ def new_blog():
 @login_required
 def new_comment(id):
     form = CommentsForm()
-    vote_form = UpvoteForm()
+    
     if form.validate_on_submit():
         print(form.validate_on_submit())
-        new_comment = Comment(blog_id = id, comment = form.comment.data, username = current_user.username, votes = form.vote.data)
+        new_comment = Comment(blog_id = id, comment = form.comment.data, username = current_user.username)
         new_comment.save_comment()
         return redirect(url_for('main.index'))
-    return render_template('new_comment.html', comment_form = form, vote_form = vote_form)
+    return render_template('new_comment.html', comment_form = form)
 
 @main.route('/user/<uname>/update/pic', methods = ['POST'])
 @login_required
