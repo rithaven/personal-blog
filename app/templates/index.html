@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% import 'macro.html' as macro %}
+
+{% block styles%}
+{{super() }}
+<link href="https://fonts.googleapis.com/css?family=Akronim|Bellefair|joti+One" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<body class="background-image" style="background-image:url('static/images/images.jpeg'); height: 100vh;background-size: cover;">
+
+ <div class="container" style="background-color:rgb(197, 230, 217);padding:20px; margin-top:0px; padding-top:40px; padding-bottom:400px;">
+   <div class="row" style="text-align:center; font-size:30px;">
+      <span style="font-size:40px; font-family: 'Akronim', cursive;">Personal Blogging</span>
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+      <div class="panel style=" style="border: 3px solid #f2f2f2; padding:20px; margin-top:10px;">
+        <h3>About</h3>
+      <p style="font-family: 'Bellefair', serif; font-size: 30px;"> A free space to post your views on ongoing events and other things that you wish to share..</p>
+     <div style="text-align:center;">
+      <a href="{{url_for('main.new_blog')}}">
+        <br>
+      <span> Create Blog</span>
+      </a>
+    </div>
+    </div>
+    </div>
+
+</hr>
+<div class="row">
+   <div class="all-pitches">
+     <span>ALL BLOGS ARE DISPALYED BELOW</span>
+   <br>
+   <br>
+     {{macro.displayBlogs(blogs)}}
+   </div>
+  </div>
+</div>
+{% endblock%}
