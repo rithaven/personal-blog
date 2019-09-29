@@ -46,20 +46,17 @@ def new_blog():
     Function that creates new blogs
     '''
 
-    form = blogForm()
+    form = BlogForm()
 
-    if category is None:
-        abort(404)
-
+  
     if form.validate_on_submit():
         blog = form.content.data
-        category_id = form.category_id.data
-        new_blog = blog(blog = blog, category_id = category_id)
+        new_blog = blog(blog = blog)
 
         new_blog.save_blog()
         return redirect(url_for('main.index'))
 
-    return render_template('new_blog.html', new_blog_form = form, category = category)
+    return render_template('new_blog.html', new_blog_form = form)
 
 @main.route('/blog/comments/new/<int:id>', methods = ['GET', 'POST'])
 @login_required
