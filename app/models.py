@@ -55,6 +55,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     blog = db.Column(db.String)
     category_id = db.Column(db.Integer)
+    # time=db.Column(db.Datetime,nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
         
@@ -114,5 +115,16 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'  
+class Quotes:
+    '''
+    Quotes class to define Quotes Objects
+    '''
+
+    def __init__(self,author,quote):
+
+        self.author = author
+        self.quote = quote
+       
+
 
 

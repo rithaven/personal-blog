@@ -8,6 +8,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:1234@localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     QUOTES_URL='http://quotes.stormconsultancy.co.uk/random.json'
+    
     #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587 

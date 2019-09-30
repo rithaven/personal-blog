@@ -14,14 +14,22 @@
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
-      <div class="panel style=" style="border: 3px solid #f2f2f2; padding:20px; margin-top:10px;margin-left:300px;">
+      <div class="panel style=" style="border: 3px solid #f2f2f2; padding:20px; margin-top:10px;margin-left:10px;">
       
-      <p style="font-family: 'Bellefair', serif; font-size: 30px;"> A free space to post your views on ongoing events and other things that you wish to share..</p>
+      <p style="font-family: 'Bellefair', serif; font-size: 30px;"> A free space to post your views on ongoing events and other things that you wish to share.</p>
      <div style="text-align:center;">
       <a href="{{url_for('main.new_blog')}}">
-        <br>
-      <span> Create Blog</span>
+      <button style="font-size:30px;color:rgb(3, 77, 16);"> CREATE BLOG</button>
       </a>
+      <br>
+      <br>
+      <br>
+    <blockquote class="text-center text-lg">
+
+      <p><i><b style="color:rgb(8, 33, 175)"> Quotes:</b>  {{quotes.quote}}</i></p>
+      <br>
+      <p> <b style="color:rgb(8, 33, 175)">Author:</b>     {{quotes.author}}</p>
+    </blockquote>
     </div>
     </div>
     </div>

@@ -6,11 +6,17 @@
        <br>
        <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;&nbsp;|
        <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|
-       <a href="{{url_for('main.new_comment',id=blog.id)}}">vote</a>
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">Delete Blog</a>
        
     </div>
 {% endfor%}
+{% macro displayQuotesList(quotes_list) %}
 
+    {% for quotes in quotes_list %}
+        <li>{{ quotes.title}}</li>
+    {% endfor %}
+
+{% endmacro %}
 {%endmacro %}
 <!--Displaying comments macro-->
 {% macro displayComments(list_of_comments) %}
@@ -37,7 +43,7 @@
        <p>{{blog.blog}}</p>
        <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;|
        <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|
-       <a href="{{url_for('main.new_comment',id=blog.id)}}">vote</a>
+       <a href="{{url_for('main.new_comment',id=blog.id)}}">Delete blog</a>
     </div>
    
   {% endfor %}

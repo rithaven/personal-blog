@@ -1,7 +1,10 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import  main
+import requests
+from app.requests import get_quotes
 from .forms import CommentsForm, UpdateProfile, BlogForm
-from ..models import Comment, Blog, User
+from ..models import Comment, Blog,Quotes, User
+# from app.requests import get_quotes
 from flask_login import login_required, current_user
 from .. import db, photos
 import markdown2
@@ -11,12 +14,14 @@ def index():
     '''
     View root page function that return the index page and its data
     '''
+    #Getting quotes
+    quotes = get_quotes()
     title = 'Home - Welcome to the best Blogging website online'
 
     search_blog = request.args.get('blog_query')
     blogs = Blog.get_all_blogs()
 
-    return render_template('index.html', title = title, blogs = blogs)
+    return render_template('index.html', title = title, blogs = blogs,quotes =quotes)
 
 @main.route('/blog/<int:blog_id>')
 def blog(blog_id):
