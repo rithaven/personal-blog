@@ -136,20 +136,20 @@ def delete_comment(id):
         return redirect(url_for('.view_comments', id=comments.blog_id))
     # return render_template('comment.html',comments=comments)
         
-@main.route('/blogs/<int:id>/update_blog',methods =['GET','POST'])
+@main.route('/blog/<int:id>/update_blog',methods =['GET','POST'])
 @login_required
 def update_blog(id):
     blogs = Blog.query.filter_by(id= id).first()
-    if blogs.user != current_user.user:
-        abort(404)
-    form =UpdateBlogForm()
+    if blogs is not None:
+        
+      form =UpdateBlogForm()
     if form.validate_on_submit():
         blogs.title = form.title.data
         blogs.content = form.content.data
         
         db.session.add(blogs)
         db.session.commit()
-        flash('Your post has been updated!')
+       
       
     return render_template('update_blog.html', form = form)
 
