@@ -81,6 +81,15 @@ class Blog(db.Model):
         '''
         return Blog.query.all()
 
+    def update_blog(self,id):
+        blogs = Blog.query.filter_by(id = id).all()
+
+        db.session.update(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Blog {self.blog}'
+
     def delete_blog(self,id):
         blogs = Blog.query.filter_by(id = id).all()
         
@@ -150,6 +159,15 @@ class Quotes:
 
         self.author = author
         self.quote = quote
+
+class Subscription(db.Model):
+    __tablename__='subscribes'
+
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(255))
+    email=db.Column(db.String(255),unique=True, index=True)
+    def __repr__(self):
+        return f'{self.email}'
        
 
 

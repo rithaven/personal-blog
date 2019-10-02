@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf%}
+{% block content %}
+
+<div id="sub">
+  <h2 style="text-align:center">Do you want to receive notifications?</h2>
+  <h2 style="text-align:center">Subscribe here!!</h2>
+  <div id='subscription' class="container">
+    {{wtf.quick_form(subscription_form)}}
+  </div>
+</div>
+{%endblock%}

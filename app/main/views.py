@@ -2,10 +2,10 @@ from flask import render_template, request, redirect, url_for, abort
 from . import  main
 import requests
 from app.requests import get_quotes
-from .forms import CommentsForm, UpdateProfile,UpdateBlogForm, BlogForm
-from ..models import Comment, Blog,Quotes, User
-
-from flask_login import login_required, current_user
+from .forms import CommentsForm, UpdateProfile,UpdateBlogForm, BlogForm, SubscriptionForm
+from ..models import Comment, Blog,Quotes, User,Subscription
+from ..email import mail_message
+from flask_login import login_required
 from .. import db, photos
 import markdown2
 
@@ -66,7 +66,7 @@ def new_blog():
     return render_template('new_blog.html', new_blog_form = form)
 
 @main.route('/blog/comments/new/<int:id>', methods = ['GET', 'POST'])
-@login_required
+
 def new_comment(id):
     form = CommentsForm()
     
@@ -89,6 +89,7 @@ def update_pic(uname):
     return redirect(url_for('main.profile', uname = uname))
 
 @main.route('/user/<uname>')
+@login_required
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
@@ -144,13 +145,12 @@ def update_blog(id):
         
       form =UpdateBlogForm()
     if form.validate_on_submit():
-        blogs.title = form.title.data
+        
         blogs.content = form.content.data
         
         db.session.add(blogs)
         db.session.commit()
-       
-      
+        return redirect(url_for('.index'))
     return render_template('update_blog.html', form = form)
 
 @main.route('/blog/<int:id>/delete_blog',methods =['GET','POST'])
@@ -163,6 +163,22 @@ def delete_blog(id):
         db.session.commit()
         
         return redirect(url_for('.index'))
+
+@main.route('/subscription/fill/',methods =['GET','POST'])
+@login_required
+def subscription():
+    form=SubscriptionForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        user=Subscription(name=name,email=email)
+        db.session.add(user)
+        db.session.commit()
+        # user = User(email = form.email.data, username = form.username.data,password = form.password.data)
+        mail_message("Thank you for subcribing","email/welcome_user",user.email,user=user)
+#       mail_message("Welcome Personal Blog","email/welcome_user",user.email,user=user)
+        return redirect(url_for('main.index'))
+    return render_template('subscriber.html',subscription_form=form)
 
 @main.route('/test/<int:id>')
 def test(id):

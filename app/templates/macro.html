@@ -2,13 +2,15 @@
  
   {% for blog in blogs_list%}
     <div class="panel style="style="box-shodow: 5px 5px 5px 5px #f2f2f2; padding:10px; text-align:center;">
+        {{blog.Title}}
+        <br>
        <p>{{blog.blog}}</p>
        <br>
        <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;&nbsp;|
        <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|
        <a href="{{url_for('main.delete_blog',id=blog.id)}}">Delete blog</a>&nbsp;&nbsp;|
        <a href="{{url_for('main.update_blog',id=blog.id)}}">Update blog</a>&nbsp;&nbsp;|
-       <a href="{{url_for('main.delete_blog',id=blog.id)}}">Subscribe</a>
+       <a href="/subscription/fill/">Subscribe</a>
        
     </div>
 {% endfor%}
@@ -43,6 +45,8 @@
 
     <div class="panel style="style="box-shodow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
       <img class="rounded-circle article-image" src="{{url_for('static', filename='profile_pics/' + post.author.image_file)}}">
+      {{blog.Title}}
+      <br>
        <p>{{blog.blog}}</p>
        <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a comment</a>&nbsp;|
        <a href="{{url_for('main.view_comments',id=blog.id)}}">View comment</a>&nbsp;&nbsp;|

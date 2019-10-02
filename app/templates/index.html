@@ -15,9 +15,9 @@
 {% block content %}
 
 
- <div class="container" style="background-color:rgb(116, 173, 138);padding:20px; margin-top:0px; padding-top:40px; padding-bottom:400px;">
+ <div class="container" style="background-image:url('static/image/bac1.jpg');padding:20px; margin-top:0px; padding-top:40px; padding-bottom:400px;">
    <div class="row" style="text-align:center; font-size:30px;">
-      <span style="font-size:40px; font-family: 'Akronim', cursive;color: brown;">Personal Blogging</span>
+      <span style="font-size:60px; font-family: 'Akronim', cursive;color: rgb(226, 222, 222);">Personal Blogging</span>
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
@@ -26,7 +26,7 @@
       <p style="font-family: 'Bellefair', serif; font-size: 30px;"> A free space to post your views on ongoing events and other things that you wish to share.</p>
      <div style="text-align:center;">
       <a href="{{url_for('main.new_blog')}}">
-      <button style="font-size:30px;color:rgb(3, 77, 16);"> CREATE BLOG</button>
+      <button style="font-size:30px;color:rgb(3, 77, 16);background-color:darkgoldenrod;"> CREATE A BLOG</button>
       </a>
       <br>
       <br>
@@ -45,7 +45,7 @@
     
 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
    <div class="all-blogs">
-     <span>ALL BLOGS ARE DISPALYED BELOW</span>
+     <span style="color:chartreuse; font-size:40px;">ALL BLOGS ARE DISPALYED BELOW</span>
    <br>
    <br>
      {{macro.displayBlogs(blogs)}}
