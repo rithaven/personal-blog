@@ -13,10 +13,7 @@ class UpdateProfile(FlaskForm):
 class BlogForm(FlaskForm):
      content = TextAreaField('YOUR Blog')
      submit = SubmitField('CreateBlog')
-
-class UpvoteForm(FlaskForm):
-     '''
-     Class to create a wtf form for upvoting a Blog
-     '''
-
-     submit = SubmitField('Upvote')
+class UpdateBlogForm(FlaskForm):
+     title = StringField('Title',validators = [Required()])
+     content = TextAreaField('Content', validators = [Required()])
+     submit = SubmitField('submit')

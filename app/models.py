@@ -22,10 +22,7 @@ class User(UserMixin, db.Model):
     pass_secure = db.Column(db.String(255))
     
     blog = db.relationship('Blog',backref = 'users',lazy="dynamic")
-
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
+    # comments = db.relationship('Comment', backref='users', lazy='dynamic')
 
     @classmethod
     def get_comments(cls,id):
@@ -42,6 +39,16 @@ class User(UserMixin, db.Model):
 
     def verify_password(self,password):
             return check_password_hash(self.pass_secure, password)
+    
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
+    def save_comment(self):
+        '''
+        Function that saves comments
+        '''
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return f'User {self.username}'
@@ -54,7 +61,7 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     blog = db.Column(db.String)
-    category_id = db.Column(db.Integer)
+    
     # time=db.Column(db.Datetime,nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
@@ -74,6 +81,14 @@ class Blog(db.Model):
         '''
         return Blog.query.all()
 
+    def delete_blog(self,id):
+        blogs = Blog.query.filter_by(id = id).all()
+        
+        db.session.delete(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Blog {self.blog}'
   
 
 
@@ -86,7 +101,7 @@ class Comment(db.Model):
     comment= db.Column(db.String)
     blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
     username =  db.Column(db.String)
-    votes= db.Column(db.Integer)
+   
     
 
     def save_comment(self):
@@ -105,6 +120,17 @@ class Comment(db.Model):
         comments = Comment.query.filter_by(blog_id=id).all()
 
         return comments
+    @classmethod
+    def delete_comment(self):
+        comments = Comment.query.filter_by(id= id).all()
+        # for comment in comments:
+        #     db.session.delete(comment)
+        #     db.session.commit()
+        db.session.delete(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Comment{self.comment}'
 
 class Role(db.Model):
     __tablename__ = 'roles'

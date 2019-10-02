@@ -4,9 +4,11 @@
 <div class="container-fluid ">
  <div class="row">
   <div class="col-sm-4">
+    {% for comment in comment %}
+   
     <img src="{{comment.image_path}}" class="img-responsive">
   </div>
-
+    {% endfor %}
   <div class="col-sm-8">
     {{format_comment|safe}}
   </div>

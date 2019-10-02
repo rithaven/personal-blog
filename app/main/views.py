@@ -2,9 +2,9 @@ from flask import render_template, request, redirect, url_for, abort
 from . import  main
 import requests
 from app.requests import get_quotes
-from .forms import CommentsForm, UpdateProfile, BlogForm
+from .forms import CommentsForm, UpdateProfile,UpdateBlogForm, BlogForm
 from ..models import Comment, Blog,Quotes, User
-# from app.requests import get_quotes
+
 from flask_login import login_required, current_user
 from .. import db, photos
 import markdown2
@@ -16,6 +16,7 @@ def index():
     '''
     #Getting quotes
     quotes = get_quotes()
+  
     title = 'Home - Welcome to the best Blogging website online'
 
     search_blog = request.args.get('blog_query')
@@ -114,12 +115,54 @@ def update_profile(uname):
 
     return render_template('profile/update.html',form =form)
 @main.route('/view/comment/<int:id>')
+@login_required
 def view_comments(id):
     '''
     Function that returns the comments belonging to a particular blog
     '''
     comments = Comment.get_comments(id)
     return render_template('view_comments.html', comments = comments, id = id)
+
+@main.route('/comment/<int:id>/delete_comment', methods = ['GET','POST'])
+@login_required
+def delete_comment(id):
+    comments = Comment.query.filter_by(id = id).first()
+    print(comments)
+    if comments is not None:
+        db.session.delete(comments)
+        db.session.commit()
+        # comments.delete_comment()
+
+        return redirect(url_for('.view_comments', id=comments.blog_id))
+    # return render_template('comment.html',comments=comments)
+        
+@main.route('/blogs/<int:id>/update_blog',methods =['GET','POST'])
+@login_required
+def update_blog(id):
+    blogs = Blog.query.filter_by(id= id).first()
+    if blogs.user != current_user.user:
+        abort(404)
+    form =UpdateBlogForm()
+    if form.validate_on_submit():
+        blogs.title = form.title.data
+        blogs.content = form.content.data
+        
+        db.session.add(blogs)
+        db.session.commit()
+        flash('Your post has been updated!')
+      
+    return render_template('update_blog.html', form = form)
+
+@main.route('/blog/<int:id>/delete_blog',methods =['GET','POST'])
+@login_required
+def delete_blog(id):
+    blogs = Blog.query.filter_by(id= id).first()
+    print(blogs)
+    if blogs is not None:
+        db.session.delete(blogs)
+        db.session.commit()
+        
+        return redirect(url_for('.index'))
 
 @main.route('/test/<int:id>')
 def test(id):
