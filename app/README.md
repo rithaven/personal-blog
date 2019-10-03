@@ -1,10 +1,9 @@
-# [one minute  pitch app](https://pitches-it1.herokuapp.com/)
-## 26th-september-2019
+# [Blogging website](https://personal-blog11.herokuapp.com/)
+## 3th-December-2019
 ## By Ritha
 ## Decription
 
-This is an application that allows you to submit one minute pithes depending on the category they like.
-
+This is an application that allows you to Create a blog through the website and post your blog.you can comment,view comment and also you can delete comments, update blog,and delete the blog you nolonger need to be viewed on the website.
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -21,7 +20,7 @@ You need the following to start working on the project on your local computer:
 -A text Editor
 ```
 ## Installation
-$ git clone<repository_url>
+$ git clone:https://github.com/rithaven/personal-blog
 
 ## Build & Deployment
  You need to have fully cloned it to run locally.
@@ -32,7 +31,7 @@ $ git clone<repository_url>
 * Flask
 * postgres
 ## live site:
-
+https://personal-blog11.herokuapp.com/
 ## For more info:
 Contact me veneruth4@gmail.com
 
